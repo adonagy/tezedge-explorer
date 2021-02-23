@@ -5,7 +5,7 @@ import { of, Subject, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ResourcesActionTypes } from './resources.actions';
 import { ResourcesService } from '../services/resources.service';
-import { Resource } from '../models/resource';
+import { Resource } from '../types/resource';
 
 @Injectable({ providedIn: 'root' })
 export class ResourcesEffects {

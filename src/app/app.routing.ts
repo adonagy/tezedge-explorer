@@ -21,7 +21,7 @@ export const AppRouting: Routes = [
   { path: 'monitoring', component: MonitoringComponent },
   {
     path: 'resources',
-    loadChildren: () => import('./resources/resources.module').then(m => m.ResourcesModule)
+    loadChildren: () => import('./resources/resources.module').then(module => module.ResourcesModule)
   },
 
   { path: 'mempool', component: MempoolComponent },

@@ -45,7 +45,7 @@ export class AppEffects {
 
             // force url reload
             this.router.navigateByUrl('/', { skipLocationChange: false }).then(() =>
-                this.router.navigate([redirectUrl])
+                this.router.navigate(['resources'])
             );
 
         }),

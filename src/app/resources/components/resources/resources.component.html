@@ -1,11 +1,33 @@
 <div fxFlexFill
      class="resources-wizard"
+     fxLayout.gt-md="row-reverse"
+     fxLayout="column"
      *ngIf="chartData$ | async as chartData">
+  <div class="info-container"
+       fxFlex.gt-md="20vw"
+       fxLayout="column">
+    <div class="info-header"
+         fxFlex="40px"></div>
+    <div class="info-content-container"
+         fxFlex="grow"
+         fxLayout="column"
+         fxLayoutAlign="space-between">
+      <div class="additional-info"
+           [class.fade]="chartData"
+           [style.transition-delay.s]="0.2">
+        <app-resources-additional-info [additionalInfo]="additionalInfo[activeAdditionalInfo]"></app-resources-additional-info>
+      </div>
+    </div>
+    <!--
+    <h5 class="info-container-title">Additional info - {{ activeAdditionalInfo.toUpperCase() }} - {{ lastMeasurement }}</h5>
+    -->
+  </div>
   <div class="main-resources-container"
-       fxFlex="grow"
+       fxFlex.gt-md="calc(100% - 20vw)"
        fxLayout="column"
        fxLayoutAlign="start stretch">
-    <div class="tabs">
+    <div class="tabs"
+         fxHide.lt-lg>
       <!--
       <span class="tab"
             [class.selected]="true">SYSTEM OVERVIEW</span>
@@ -25,8 +47,20 @@
              (click)="toggleAdditionalInfo('cpu')"
              class="resource-category-block">
           <div class="graph-title">CPU</div>
+          <div class="graph-label-list"
+               fxLayout="row"
+               fxLayoutAlign="end"
+               fxLayoutGap="14px">
+            <span *ngFor="let label of additionalInfo.cpu"
+                  class="graph-label-item">
+              <span class="label-color"
+                    [style.background]="label.color"></span>
+              {{ label.name }}
+            </span>
+          </div>
           <div class="rotated-label">Load</div>
-          <div fxFlex="grow">
+          <div fxFlex="grow"
+               class="chart-container">
             <app-tezedge-line-chart *ngIf="chartData?.cpu[0].series.length"
                                     [startWithYGridLine]="true"
                                     [yAxisTickFormatting]="yAxisPercentageConversion"
@@ -35,11 +69,8 @@
                                     [results]="chartData.cpu"
                                     [circleAtTheEnd]="true"
                                     [scheme]="colorScheme"
-                                    [legend]="false"
-                                    [legendTitle]="null"
                                     [xAxis]="true"
                                     [yAxis]="true"
-                                    [timeline]="false"
                                     [animations]="false"
                                     [curve]="curve">
               <ng-template #seriesTooltipTemplate
@@ -59,8 +90,20 @@
              (click)="toggleAdditionalInfo('memory')"
              class="resource-category-block">
           <div class="graph-title">RAM</div>
+          <div class="graph-label-list"
+               fxLayout="row"
+               fxLayoutAlign="end"
+               fxLayoutGap="14px">
+            <span *ngFor="let label of additionalInfo.memory"
+                  class="graph-label-item">
+              <span class="label-color"
+                    [style.background]="label.color"></span>
+              {{ label.name }}
+            </span>
+          </div>
           <div class="rotated-label">Usage</div>
-          <div fxFlex="grow">
+          <div fxFlex="grow"
+               class="chart-container">
             <app-tezedge-line-chart *ngIf="chartData?.memory[0].series.length"
                                     [startWithYGridLine]="true"
                                     [results]="chartData.memory"
@@ -69,11 +112,8 @@
                                     [xAxisTicks]="chartData.xTicksValues"
                                     [circleAtTheEnd]="true"
                                     [scheme]="colorScheme"
-                                    [legend]="false"
-                                    [legendTitle]="null"
                                     [xAxis]="true"
                                     [yAxis]="true"
-                                    [timeline]="false"
                                     [animations]="false"
                                     [curve]="curve">
               <ng-template #seriesTooltipTemplate
@@ -93,8 +133,17 @@
              (click)="toggleAdditionalInfo('disk')"
              class="resource-category-block">
           <div class="graph-title">DISK</div>
+          <div class="graph-label-list">
+            <span *ngFor="let label of additionalInfo.disk"
+                  class="graph-label-item">
+              <span class="label-color"
+                    [style.background]="label.color"></span>
+              {{ label.name }}
+            </span>
+          </div>
           <div class="rotated-label">Storage</div>
-          <div fxFlex="grow">
+          <div fxFlex="grow"
+               class="chart-container">
             <app-tezedge-line-chart *ngIf="chartData?.disk[0].series.length"
                                     [startWithYGridLine]="true"
                                     [results]="chartData.disk"
@@ -103,11 +152,8 @@
                                     [xAxisTicks]="chartData.xTicksValues"
                                     [circleAtTheEnd]="true"
                                     [scheme]="colorScheme"
-                                    [legend]="false"
-                                    [legendTitle]="null"
                                     [xAxis]="true"
                                     [yAxis]="true"
-                                    [timeline]="false"
                                     [animations]="false"
                                     [curve]="curve">
               <ng-template #seriesTooltipTemplate
@@ -123,30 +169,12 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 
       <div fxFlex="38px">
       </div> 
     -->
 
-  </div>
-  <div class="info-container"
-       fxLayout="column">
-    <div class="info-header"
-         fxFlex="40px"></div>
-    <div class="info-content-container"
-         fxFlex="grow"
-         fxLayout="column"
-         fxLayoutAlign="space-between">
-      <div class="additional-info"
-           [class.fade]="chartData"
-           [style.transition-delay.s]="0.8">
-        <app-resources-additional-info [additionalInfo]="additionalInfo[activeAdditionalInfo]"></app-resources-additional-info>
-      </div>
-    </div>
-    <!--
-    <h5 class="info-container-title">Additional info - {{ activeAdditionalInfo.toUpperCase() }} - {{ lastMeasurement }}</h5>
-    -->
   </div>
 </div>
 
