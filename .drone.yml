@@ -115,6 +115,8 @@ steps:
 
 - name: cp-static
   image: drone-tezedge-explorer:latest
+  depends_on:
+    - test
   privileged: true
   pull: if-not-exists
   volumes:
