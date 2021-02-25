@@ -95,23 +95,23 @@ steps:
   depends_on:
     - frontend-server
 
-- name: publish
-  image: plugins/docker
-  depends_on:
-    - test
-  settings:
-    repo: simplestakingcom/tezedge-explorer
-    tags:
-      - ${DRONE_TAG}
-      - latest-release
-    dockerfile: Dockerfile
-    build_args:
-      - branch=master
-      - commit=${DRONE_COMMIT}
-    username:
-      from_secret: docker_hub_username
-    password:
-      from_secret: docker_hub_pswd
+# - name: publish
+#   image: plugins/docker
+#   depends_on:
+#     - test
+#   settings:
+#     repo: simplestakingcom/tezedge-explorer
+#     tags:
+#       - ${DRONE_TAG}
+#       - latest-release
+#     dockerfile: Dockerfile
+#     build_args:
+#       - branch=master
+#       - commit=${DRONE_COMMIT}
+#     username:
+#       from_secret: docker_hub_username
+#     password:
+#       from_secret: docker_hub_pswd
 
 - name: cp-static
   image: drone-tezedge-explorer:latest
@@ -136,7 +136,7 @@ steps:
       from_secret: FIREBASE_API_TOKEN
   depends_on:
     - test
-    - publish
+    # - publish
   commands:
     - firebase deploy --token=$${FIREBASE_API_TOKEN}
 
